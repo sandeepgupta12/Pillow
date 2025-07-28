@@ -105,6 +105,9 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+        if: ${{ matrix.cibw_arch == 'ppc64le' }}
       - name: Install cibuildwheel
         run: |
           python3 -m pip install -r .ci/requirements-cibw.txt
