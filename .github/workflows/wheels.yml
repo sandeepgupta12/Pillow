@@ -10,25 +10,9 @@ on:
   #        │  │ │ │ │
   - cron: "42 1 * * 0,3"
   push:
-    paths:
-      - ".ci/requirements-cibw.txt"
-      - ".github/workflows/wheel*"
-      - "pyproject.toml"
-      - "setup.py"
-      - "wheels/*"
-      - "winbuild/build_prepare.py"
-      - "winbuild/fribidi.cmake"
-    tags:
-      - "*"
+   
   pull_request:
-    paths:
-      - ".ci/requirements-cibw.txt"
-      - ".github/workflows/wheel*"
-      - "pyproject.toml"
-      - "setup.py"
-      - "wheels/*"
-      - "winbuild/build_prepare.py"
-      - "winbuild/fribidi.cmake"
+    
   workflow_dispatch:
 
 permissions:
@@ -43,7 +27,7 @@ env:
 
 jobs:
   build-native-wheels:
-    if: github.event_name != 'schedule' || github.repository_owner == 'python-pillow'
+    
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -105,6 +89,11 @@ jobs:
             platform: ios
             os: macos-13
             cibw_arch: x86_64_iphonesimulator
+          - name: "manylinux_2_28 x86_64"
+            platform: linux
+            os: ubuntu-latest
+            cibw_arch: ppc64le
+            build: "*manylinux*"
     steps:
       - uses: actions/checkout@v4
         with:
@@ -139,7 +128,7 @@ jobs:
           path: ./wheelhouse/*.whl
 
   windows:
-    if: github.event_name != 'schedule' || github.repository_owner == 'python-pillow'
+    
     name: Windows ${{ matrix.cibw_arch }}
     runs-on: ${{ matrix.os }}
     strategy:
