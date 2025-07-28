@@ -89,11 +89,12 @@ jobs:
             platform: ios
             os: macos-13
             cibw_arch: x86_64_iphonesimulator
-          - name: "manylinux_2_28 x86_64"
+          - name: "manylinux_2_28 ppc64le"
             platform: linux
             os: ubuntu-latest
             cibw_arch: ppc64le
             build: "*manylinux*"
+            manylinux: quay.io/pypa/manylinux_2_28_ppc64le
     steps:
       - uses: actions/checkout@v4
         with:
@@ -120,7 +121,9 @@ jobs:
           CIBW_MANYLINUX_PYPY_AARCH64_IMAGE: ${{ matrix.manylinux }}
           CIBW_MANYLINUX_PYPY_X86_64_IMAGE: ${{ matrix.manylinux }}
           CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.manylinux }}
+          CIBW_MANYLINUX_PPC64LE_IMAGE: ${{ matrix.manylinux }}
           MACOSX_DEPLOYMENT_TARGET: ${{ matrix.macosx_deployment_target }}
+
 
       - uses: actions/upload-artifact@v4
         with:
