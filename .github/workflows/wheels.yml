@@ -43,7 +43,7 @@ env:
 
 jobs:
   build-native-wheels:
-    if: github.event_name != 'schedule' || github.repository_owner == 'python-pillow'
+    
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     strategy:
