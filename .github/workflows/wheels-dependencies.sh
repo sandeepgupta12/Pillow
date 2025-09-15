@@ -290,9 +290,9 @@ function build {
         build_tiff
     fi
 
-    if [[ "$AUDITWHEEL_ARCH" == "ppc64le" ]]; then
-        return
-    fi
+    # if [[ "$AUDITWHEEL_ARCH" == "ppc64le" ]]; then
+    #     return
+    # fi
     build_libavif
     build_libpng
     build_lcms2
